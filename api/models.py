@@ -4,14 +4,16 @@ from django.contrib.auth import get_user_model
 
 class CateringEstablishment(models.Model):
     establishment_code = models.UUIDField()
+    image = models.ImageField(blank=True,
+                              upload_to='cateringEstablishmentImages/')
 
 
 class Dish(models.Model):
     name = models.CharField(max_length=20)
     image = models.ImageField(blank=True, upload_to='dishImages/')
     description = models.TextField()
-    type = models.TextField(max_length=20)
-    popularity = models.CharField(max_length=20)
+    type = models.CharField(max_length=20)
+    popularity = models.CharField(max_length=20, blank=True)
     rate = models.IntegerField()
 
 

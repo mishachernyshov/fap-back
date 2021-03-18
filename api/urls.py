@@ -34,5 +34,3 @@ urlpatterns = [
     path('ordered_dish_ingredient/', views.OrderedDishIngredientList.as_view()),
     path('ordered_dish_ingredient/<int:pk>/', views.OrderedDishIngredientEntity.as_view()),
 ]
-
-

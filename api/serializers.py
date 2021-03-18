@@ -28,41 +28,41 @@ class IngredientSerializer(ModelSerializer):
 
 class DishIngredientSerializer(ModelSerializer):
     class Meta:
-        model = models.Ingredient
+        model = models.DishIngredient
         fields = '__all__'
 
 
 class AutomaticMachineTypeSerializer(ModelSerializer):
     class Meta:
-        model = models.Ingredient
+        model = models.AutomaticMachineType
         fields = '__all__'
 
 
 class CateringEstablishmentAutomaticMachineSerializer(ModelSerializer):
     class Meta:
-        model = models.Ingredient
+        model = models.CateringEstablishmentAutomaticMachine
         fields = '__all__'
 
 
 class AutomaticMachineDishSerializer(ModelSerializer):
     class Meta:
-        model = models.Ingredient
+        model = models.AutomaticMachineDish
         fields = '__all__'
 
 
 class UserSerializer(ModelSerializer):
     class Meta:
-        model = models.Ingredient
+        model = models.User
         fields = '__all__'
 
 
 class DishReportSerializer(ModelSerializer):
     class Meta:
-        model = models.Ingredient
+        model = models.DishReport
         fields = '__all__'
 
 
 class OrderedDishIngredientSerializer(ModelSerializer):
     class Meta:
-        model = models.Ingredient
+        model = models.OrderedDishIngredient
         fields = '__all__'
