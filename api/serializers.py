@@ -1,5 +1,5 @@
 import api.models as models
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, Serializer, BaseSerializer
 
 
 class CateringEstablishmentSerializer(ModelSerializer):
@@ -14,10 +14,10 @@ class DishSerializer(ModelSerializer):
         fields = '__all__'
 
 
-class CateringEstablishmentDishSerializer(ModelSerializer):
-    class Meta:
-        model = models.CateringEstablishmentDish
-        fields = '__all__'
+# class CateringEstablishmentDishSerializer(ModelSerializer):
+#     class Meta:
+#         model = models.CateringEstablishmentDish
+#         fields = '__all__'
 
 
 class IngredientSerializer(ModelSerializer):
@@ -30,6 +30,19 @@ class DishIngredientSerializer(ModelSerializer):
     class Meta:
         model = models.DishIngredient
         fields = '__all__'
+
+
+class AppropriateDishesSerializer(Serializer):
+    def to_representation(self, instance):
+        print(instance)
+        res = []
+        for k in instance:
+            res.append({
+                'name': k.name,
+                'image': k.image if k.image else None,
+                'type': k.type
+            })
+        return res
 
 
 class AutomaticMachineTypeSerializer(ModelSerializer):

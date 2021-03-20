@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
+from dj_database_url import parse as db_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
 
     # 3rd party
     'rest_framework',
+    'drf_yasg',
 
     # Local
     'api.apps.ApiConfig',
@@ -80,14 +83,9 @@ WSGI_APPLICATION = 'fap_backend.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'food_auto_placer_db',
-        'USER': 'myhailo_admin',
-        'PASSWORD': 'Kdou3SM829LFms9Kks8D',
-        'HOST': 'db',
-        'PORT': 5432,
-    }
+    'default': config('DATABASE_URL',
+                      default='postgresql://myhailo_admin:Kdou3SM829LFms9Kks8D@db:5432/food_auto_placer_db',
+                      cast=db_url),
 }
 
 

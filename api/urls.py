@@ -1,36 +1,46 @@
 from django.urls import path
 import api.views as views
+from rest_framework.routers import SimpleRouter
+
+router = SimpleRouter()
+
+router.register('catering_establishment',
+                views.CateringEstablishmentViewSet,
+                basename='catering_establishment')
+router.register('dish',
+                views.DishViewSet,
+                basename='dish')
+router.register('ingredient',
+                views.IngredientViewSet,
+                basename='ingredient')
+router.register('dish_ingredient',
+                views.DishIngredientViewSet,
+                basename='dish_ingredient')
+router.register('automatic_machine_type',
+                views.AutomaticMachineTypeViewSet,
+                basename='automatic_machine_type')
+router.register('catering_establishment_automatic_machine',
+                views.CateringEstablishmentAutomaticMachineViewSet,
+                basename='catering_establishment_automatic_machine')
+router.register('automatic_machine_dish',
+                views.AutomaticMachineDishViewSet,
+                basename='automatic_machine_dish')
+router.register('user',
+                views.UserViewSet,
+                basename='user')
+router.register('dish_report',
+                views.DishReportViewSet,
+                basename='dish_report')
+router.register('ordered_dish_ingredient',
+                views.OrderedDishIngredientViewSet,
+                basename='ordered_dish_ingredient')
+
 
 urlpatterns = [
-    path('catering_establishment/',
-         views.CateringEstablishmentList.as_view()),
-    path('catering_establishment/<int:pk>/',
-         views.CateringEstablishmentEntity.as_view()),
-    path('dish/', views.DishList.as_view()),
-    path('dish/<int:pk>/', views.DishEntity.as_view()),
-    path('catering_establishment_dish/',
-         views.CateringEstablishmentDishList.as_view()),
     path('catering_establishment_dish/<int:pk>/',
-         views.CateringEstablishmentDishEntity.as_view()),
-    path('ingredient/', views.IngredientList.as_view()),
-    path('ingredient/<int:pk>/', views.IngredientEntity.as_view()),
-    path('dish_ingredient/', views.DishIngredientList.as_view()),
-    path('dish_ingredient/<int:pk>/', views.DishIngredientEntity.as_view()),
-    path('automatic_machine_type/',
-         views.AutomaticMachineTypeList.as_view()),
-    path('automatic_machine_type/<int:pk>/',
-         views.AutomaticMachineTypeEntity.as_view()),
-    path('catering_establishment_automatic_machine/',
-         views.CateringEstablishmentAutomaticMachineList.as_view()),
-    path('catering_establishment_automatic_machine/<int:pk>/',
-         views.CateringEstablishmentAutomaticMachineEntity.as_view()),
-    path('automatic_machine_dish/', views.AutomaticMachineDishList.as_view()),
-    path('automatic_machine_dish/<int:pk>/',
-         views.AutomaticMachineDishEntity.as_view()),
-    path('user/', views.UserList.as_view()),
-    path('user/<int:pk>/', views.UserEntity.as_view()),
-    path('dish_report/', views.DishReportList.as_view()),
-    path('dish_report/<int:pk>/', views.DishReportEntity.as_view()),
-    path('ordered_dish_ingredient/', views.OrderedDishIngredientList.as_view()),
-    path('ordered_dish_ingredient/<int:pk>/', views.OrderedDishIngredientEntity.as_view()),
+         views.CateringEstablishmentDishList.as_view()),
+    path('appropriate_dishes/',
+         views.AppropriateDishesWithIngredientsList.as_view()),
 ]
+
+urlpatterns += router.urls

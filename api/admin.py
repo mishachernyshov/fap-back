@@ -7,7 +7,7 @@ api_models = [
     models.AutomaticMachineType,
     models.CateringEstablishment,
     models.CateringEstablishmentAutomaticMachine,
-    models.CateringEstablishmentDish,
+    # models.CateringEstablishmentDish,
     models.Dish,
     models.DishIngredient,
     models.DishReport,

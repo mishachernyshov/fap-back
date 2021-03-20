@@ -17,12 +17,6 @@ class Dish(models.Model):
     rate = models.IntegerField()
 
 
-class CateringEstablishmentDish(models.Model):
-    dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
-    catering_establishment = models.ForeignKey(CateringEstablishment,
-                                               on_delete=models.CASCADE)
-
-
 class Ingredient(models.Model):
     name = models.CharField(max_length=20)
     price = models.FloatField()
