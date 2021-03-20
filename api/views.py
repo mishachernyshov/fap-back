@@ -3,6 +3,7 @@ from rest_framework import generics, viewsets
 import api.models as models
 import api.serializers as serializers
 import api.database_tools as database_tools
+from collections import defaultdict
 
 
 class CateringEstablishmentViewSet(viewsets.ModelViewSet):
@@ -118,3 +119,100 @@ class CateringEstablishmentDishList(generics.ListAPIView):
             database_tools.save_response_data_to_list,
             dishes,
             'GET')
+
+
+class DishSetCateringEstablishments(generics.ListAPIView):
+    serializer_class = serializers.CateringEstablishmentSerializer
+
+    def get_queryset(self):
+        query_parameters = self.request.query_params
+
+        dish_key = 'dish'
+        wish_list = set(map(int, list(query_parameters.getlist(dish_key))))
+
+        automated_machines_with_given_dishes = \
+            models.AutomaticMachineDish.objects.filter(dish__in=wish_list)
+        automated_machines_types_with_given_dishes = \
+            automated_machines_with_given_dishes.values_list('automatic_machine_type')
+        dishes_cooked_by_machines = \
+            automated_machines_with_given_dishes.values_list('dish')
+
+        machine_type_appropriate_dishes = get_list_mapped_to_integer(
+            automated_machines_types_with_given_dishes, dishes_cooked_by_machines)
+
+        catering_establishment_machines = get_catering_establishment_machines(
+            automated_machines_types_with_given_dishes)
+
+        catering_establishments_that_cook_given_dishes = \
+            get_catering_establishments_that_cook_given_dishes(
+                machine_type_appropriate_dishes,
+                catering_establishment_machines, wish_list)
+
+        searched_catering_establishments = models.CateringEstablishment.objects.filter(
+            id__in=catering_establishments_that_cook_given_dishes)
+        searched_catering_establishments = \
+            choose_catering_establishment_by_location(
+                query_parameters, searched_catering_establishments)
+
+        return searched_catering_establishments
+
+
+def get_list_mapped_to_integer(keys, values):
+    result_dict = defaultdict(set)
+
+    for k in range(len(keys)):
+        result_dict[keys[k][0]].add(values[k][0])
+
+    return result_dict
+
+
+def get_catering_establishment_machines(
+        automated_machines_types_with_given_dishes):
+    machines_that_cook_given_dishes = \
+        models.CateringEstablishmentAutomaticMachine.objects.filter(
+            automatic_machine_type__in=automated_machines_types_with_given_dishes)
+    appropriate_catering_establishments = \
+        machines_that_cook_given_dishes.values_list('catering_establishment')
+    appropriate_machines = \
+        machines_that_cook_given_dishes.values_list('automatic_machine_type')
+    return get_list_mapped_to_integer(
+        appropriate_catering_establishments, appropriate_machines)
+
+
+def get_catering_establishments_that_cook_given_dishes(
+        catering_establishment_machines, machine_type_dishes, wish_list):
+    appropriate_catering_establishments = list()
+
+    for catering_establishment, machines in \
+            catering_establishment_machines.items():
+        catering_establishment_dishes = set()
+        for machine in machines:
+            catering_establishment_dishes = \
+                catering_establishment_dishes.union(machine_type_dishes[machine])
+        if catering_establishment_dishes == wish_list:
+            appropriate_catering_establishments.append(catering_establishment)
+
+    return appropriate_catering_establishments
+
+
+def choose_catering_establishment_by_location(params, catering_establishments):
+    street_list = params.getlist('street')
+    city_list = params.getlist('city')
+    country_list = params.getlist('country')
+
+    if street_list:
+        if appropriate_catering_establishments := \
+                catering_establishments.filter(street__exact=street_list[0]):
+            return appropriate_catering_establishments
+
+    if city_list:
+        if appropriate_catering_establishments := \
+                catering_establishments.filter(city__exact=city_list[0]):
+            return appropriate_catering_establishments
+
+    if country_list:
+        if appropriate_catering_establishments := \
+                catering_establishments.filter(country__exact=country_list[0]):
+            return appropriate_catering_establishments
+
+    return catering_establishments

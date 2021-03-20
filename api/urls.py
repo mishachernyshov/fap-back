@@ -41,6 +41,8 @@ urlpatterns = [
          views.CateringEstablishmentDishList.as_view()),
     path('appropriate_dishes/',
          views.AppropriateDishesWithIngredientsList.as_view()),
+    path('catering_establishments_with_given_dishes/',
+         views.DishSetCateringEstablishments.as_view()),
 ]
 
 urlpatterns += router.urls

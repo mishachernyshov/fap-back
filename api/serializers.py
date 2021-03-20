@@ -34,7 +34,6 @@ class DishIngredientSerializer(ModelSerializer):
 
 class AppropriateDishesSerializer(Serializer):
     def to_representation(self, instance):
-        print(instance)
         res = []
         for k in instance:
             res.append({

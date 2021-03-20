@@ -6,6 +6,12 @@ class CateringEstablishment(models.Model):
     establishment_code = models.UUIDField()
     image = models.ImageField(blank=True,
                               upload_to='cateringEstablishmentImages/')
+    country = models.CharField(max_length=25)
+    city = models.CharField(max_length=25)
+    street = models.CharField(max_length=30)
+
+    def __str__(self):
+        return str(self.id)
 
 
 class Dish(models.Model):
@@ -16,10 +22,16 @@ class Dish(models.Model):
     popularity = models.CharField(max_length=20, blank=True)
     rate = models.IntegerField()
 
+    def __str__(self):
+        return self.name
+
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=20)
     price = models.FloatField()
+
+    def __str__(self):
+        return self.name
 
 
 class DishIngredient(models.Model):
@@ -27,9 +39,14 @@ class DishIngredient(models.Model):
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
     status = models.BooleanField()
 
+    def __str__(self):
+        return f'{self.dish.name}: {self.ingredient.name}'
+
 
 class AutomaticMachineType(models.Model):
-    pass
+
+    def __str__(self):
+        return self.id
 
 
 class CateringEstablishmentAutomaticMachine(models.Model):
@@ -38,11 +55,17 @@ class CateringEstablishmentAutomaticMachine(models.Model):
     automatic_machine_type = models.ForeignKey(AutomaticMachineType,
                                                on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.catering_establishment.id}: {self.automatic_machine_type.id}'
+
 
 class AutomaticMachineDish(models.Model):
     automatic_machine_type = models.ForeignKey(AutomaticMachineType,
                                                on_delete=models.CASCADE)
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.automatic_machine_type.id}: {self.dish.name}'
 
 
 class User(get_user_model()):
