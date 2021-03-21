@@ -46,7 +46,7 @@ class DishIngredient(models.Model):
 class AutomaticMachineType(models.Model):
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 
 class CateringEstablishmentAutomaticMachine(models.Model):

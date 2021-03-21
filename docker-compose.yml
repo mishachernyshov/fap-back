@@ -14,7 +14,7 @@ services:
       - djangonetwork
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runsslserver 0.0.0.0:8000 --certificate cert.pem --key key.pem
     volumes:
       - .:/code
     ports:

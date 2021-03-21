@@ -1,6 +1,11 @@
 from django.urls import path
 import api.views as views
 from rest_framework.routers import SimpleRouter
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView,
+)
 
 router = SimpleRouter()
 
@@ -43,6 +48,13 @@ urlpatterns = [
          views.AppropriateDishesWithIngredientsList.as_view()),
     path('catering_establishments_with_given_dishes/',
          views.DishSetCateringEstablishments.as_view()),
+    path('backup/', views.BackUpMaking.as_view()),
+    path('restore_db/', views.RestoreDatabase.as_view()),
+    path('update_certificate/', views.UpdateCertificate.as_view()),
+
+    path("auth/token/login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("auth/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("auth/token/verify/", TokenVerifyView.as_view(), name="token_verify"),
 ]
 
 urlpatterns += router.urls

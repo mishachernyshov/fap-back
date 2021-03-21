@@ -1,9 +1,11 @@
-from django.shortcuts import render
 from rest_framework import generics, viewsets
+from django.http import HttpResponse
+from django.views import View
 import api.models as models
 import api.serializers as serializers
 import api.database_tools as database_tools
 from collections import defaultdict
+import os
 
 
 class CateringEstablishmentViewSet(viewsets.ModelViewSet):
@@ -180,7 +182,7 @@ def get_catering_establishment_machines(
 
 
 def get_catering_establishments_that_cook_given_dishes(
-        catering_establishment_machines, machine_type_dishes, wish_list):
+        machine_type_dishes, catering_establishment_machines, wish_list):
     appropriate_catering_establishments = list()
 
     for catering_establishment, machines in \
@@ -216,3 +218,31 @@ def choose_catering_establishment_by_location(params, catering_establishments):
             return appropriate_catering_establishments
 
     return catering_establishments
+
+
+class BackUpMaking(View):
+
+    def post(self, request, *args, **kwargs):
+        return perform_os_command('python manage.py dbbackup')
+
+
+class RestoreDatabase(View):
+
+    def post(self, request, *args, **kwargs):
+        return perform_os_command('yes Y | python manage.py dbrestore')
+
+
+class UpdateCertificate(View):
+
+    def post(self, request, *args, **kwargs):
+        return perform_os_command(
+            'mkcert cert key 0.0.0.0 localhost 127.0.0.1 ::1 && mv '
+            'cert+5.pem cert.pem && mv cert+5-key.pem key.pem')
+
+
+def perform_os_command(command):
+    try:
+        os.system(command)
+    except:
+        return HttpResponse(status=500)
+    return HttpResponse(status=200)

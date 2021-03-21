@@ -33,13 +33,11 @@ def executeRequest(request_string, query_proc_func, container, request_type):
     finally:
         disconnect_from_database(ps_connection, cursor)
     if request_type == 'GET':
-        print(container)
         return Response(container)
 
 
 def save_response_data_to_list(requested_data, container):
     for row in requested_data:
-        print(row)
         row_data = list()
         for column_data in row:
             row_data.append(column_data)
