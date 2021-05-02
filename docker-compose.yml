@@ -1,26 +1,13 @@
 version: "3.9"
 
 services:
-  db:
-    image: postgres
-    environment: 
-      - POSTGRES_DB=food_auto_placer_db
-      - POSTGRES_USER=myhailo_admin
-      - POSTGRES_PASSWORD=Kdou3SM829LFms9Kks8D
-      - POSTGRES_HOST_AUTH_METHOD=trust
-    ports:
-      - 54321:5432
-    networks:
-      - djangonetwork
-  web:
+  back:
     build: .
-    command: python manage.py runsslserver 0.0.0.0:8000 --certificate cert.pem --key key.pem
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
     ports:
       - 8000:8000
-    depends_on:
-      - db
     networks:
       - djangonetwork
 

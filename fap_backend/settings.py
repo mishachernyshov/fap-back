@@ -14,6 +14,7 @@ from pathlib import Path
 from decouple import config
 from dj_database_url import parse as db_url
 from datetime import timedelta
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,6 +32,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 
+AUTH_USER_MODEL = 'api.User'
+USER_DETAILS_SERIALIZER = 'api.UserSerializer'
 
 # Application definition
 
@@ -69,7 +72,7 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=300),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=7),
     'ALGORITHM': 'HS256',
     'SIGNING_KEY': SECRET_KEY,
     'AUTH_HEADER_TYPES': ('JWT',),
@@ -83,6 +86,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'fap_backend.urls'
@@ -110,9 +114,11 @@ WSGI_APPLICATION = 'fap_backend.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': config('DATABASE_URL',
-                      default='postgresql://myhailo_admin:Kdou3SM829LFms9Kks8D@db:5432/food_auto_placer_db',
-                      cast=db_url),
+    'default': config(
+        'DATABASE_URL',
+        default='postgresql://misha@food-autoplacer:Xpohuc490@food-autoplacer.postgres.database.azure.com:5432/food_auto_placer_db',
+        cast=db_url
+    ),
 }
 
 
@@ -151,4 +157,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
+#
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'static_root')
+#
+#
+# MEDIA_URL = '/images/'
+#
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
+DEFAULT_FILE_STORAGE = 'fap_backend.custom_azure.AzureMediaStorage'
+STATICFILES_STORAGE = 'fap_backend.custom_azure.AzureStaticStorage'
+
+STATIC_LOCATION = "static"
+MEDIA_LOCATION = "media"
+
+AZURE_ACCOUNT_NAME = "fapbackstorage"
+AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'

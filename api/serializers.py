@@ -14,12 +14,6 @@ class DishSerializer(ModelSerializer):
         fields = '__all__'
 
 
-# class CateringEstablishmentDishSerializer(ModelSerializer):
-#     class Meta:
-#         model = models.CateringEstablishmentDish
-#         fields = '__all__'
-
-
 class IngredientSerializer(ModelSerializer):
     class Meta:
         model = models.Ingredient
@@ -38,7 +32,7 @@ class AppropriateDishesSerializer(Serializer):
         for k in instance:
             res.append({
                 'name': k.name,
-                'image': k.image if k.image else None,
+                'image': str(k.image) if k.image else None,
                 'type': k.type
             })
         return res
@@ -65,7 +59,7 @@ class AutomaticMachineDishSerializer(ModelSerializer):
 class UserSerializer(ModelSerializer):
     class Meta:
         model = models.User
-        fields = '__all__'
+        fields = ['username', 'password', 'is_VIP']
 
 
 class DishReportSerializer(ModelSerializer):

@@ -1,0 +1,1969 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.4 (Debian 12.4-1.pgdg100+1)
+-- Dumped by pg_dump version 13.2 (Debian 13.2-1.pgdg100+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+ALTER TABLE ONLY public.django_admin_log DROP CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id;
+ALTER TABLE ONLY public.django_admin_log DROP CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co;
+ALTER TABLE ONLY public.auth_user_user_permissions DROP CONSTRAINT auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id;
+ALTER TABLE ONLY public.auth_user_user_permissions DROP CONSTRAINT auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm;
+ALTER TABLE ONLY public.auth_user_groups DROP CONSTRAINT auth_user_groups_user_id_6a12ed8b_fk_auth_user_id;
+ALTER TABLE ONLY public.auth_user_groups DROP CONSTRAINT auth_user_groups_group_id_97559544_fk_auth_group_id;
+ALTER TABLE ONLY public.auth_permission DROP CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co;
+ALTER TABLE ONLY public.auth_group_permissions DROP CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id;
+ALTER TABLE ONLY public.auth_group_permissions DROP CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm;
+ALTER TABLE ONLY public.api_user DROP CONSTRAINT api_user_user_ptr_id_5a766ead_fk_auth_user_id;
+ALTER TABLE ONLY public.api_ordereddishingredient DROP CONSTRAINT api_ordereddishingre_user_id_1b43cfbe_fk_api_user_;
+ALTER TABLE ONLY public.api_ordereddishingredient DROP CONSTRAINT api_ordereddishingre_ingredient_id_09319141_fk_api_ingre;
+ALTER TABLE ONLY public.api_dishreport DROP CONSTRAINT api_dishreport_user_id_20bc28b1_fk_api_user_user_ptr_id;
+ALTER TABLE ONLY public.api_dishreport DROP CONSTRAINT api_dishreport_dish_id_9e76a0da_fk_api_dish_id;
+ALTER TABLE ONLY public.api_dishingredient DROP CONSTRAINT api_dishingredient_ingredient_id_2004fec3_fk_api_ingredient_id;
+ALTER TABLE ONLY public.api_dishingredient DROP CONSTRAINT api_dishingredient_dish_id_3fe861fb_fk_api_dish_id;
+ALTER TABLE ONLY public.api_cateringestablishmentautomaticmachine DROP CONSTRAINT api_cateringestablis_catering_establishme_5e945c5d_fk_api_cater;
+ALTER TABLE ONLY public.api_cateringestablishmentautomaticmachine DROP CONSTRAINT api_cateringestablis_automatic_machine_ty_10422ff3_fk_api_autom;
+ALTER TABLE ONLY public.api_automaticmachinedish DROP CONSTRAINT api_automaticmachinedish_dish_id_eb135d08_fk_api_dish_id;
+ALTER TABLE ONLY public.api_automaticmachinedish DROP CONSTRAINT api_automaticmachine_automatic_machine_ty_edcb18a1_fk_api_autom;
+DROP INDEX public.django_session_session_key_c0390e0f_like;
+DROP INDEX public.django_session_expire_date_a5c62663;
+DROP INDEX public.django_admin_log_user_id_c564eba6;
+DROP INDEX public.django_admin_log_content_type_id_c4bce8eb;
+DROP INDEX public.auth_user_username_6821ab7c_like;
+DROP INDEX public.auth_user_user_permissions_user_id_a95ead1b;
+DROP INDEX public.auth_user_user_permissions_permission_id_1fbb5f2c;
+DROP INDEX public.auth_user_groups_user_id_6a12ed8b;
+DROP INDEX public.auth_user_groups_group_id_97559544;
+DROP INDEX public.auth_permission_content_type_id_2f476e4b;
+DROP INDEX public.auth_group_permissions_permission_id_84c5c92e;
+DROP INDEX public.auth_group_permissions_group_id_b120cbf9;
+DROP INDEX public.auth_group_name_a6ea08ec_like;
+DROP INDEX public.api_ordereddishingredient_user_id_1b43cfbe;
+DROP INDEX public.api_ordereddishingredient_ingredient_id_09319141;
+DROP INDEX public.api_dishreport_user_id_20bc28b1;
+DROP INDEX public.api_dishreport_dish_id_9e76a0da;
+DROP INDEX public.api_dishingredient_ingredient_id_2004fec3;
+DROP INDEX public.api_dishingredient_dish_id_3fe861fb;
+DROP INDEX public.api_cateringestablishmenta_catering_establishment_id_5e945c5d;
+DROP INDEX public.api_cateringestablishmenta_automatic_machine_type_id_10422ff3;
+DROP INDEX public.api_automaticmachinedish_dish_id_eb135d08;
+DROP INDEX public.api_automaticmachinedish_automatic_machine_type_id_edcb18a1;
+ALTER TABLE ONLY public.django_session DROP CONSTRAINT django_session_pkey;
+ALTER TABLE ONLY public.django_migrations DROP CONSTRAINT django_migrations_pkey;
+ALTER TABLE ONLY public.django_content_type DROP CONSTRAINT django_content_type_pkey;
+ALTER TABLE ONLY public.django_content_type DROP CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq;
+ALTER TABLE ONLY public.django_admin_log DROP CONSTRAINT django_admin_log_pkey;
+ALTER TABLE ONLY public.auth_user DROP CONSTRAINT auth_user_username_key;
+ALTER TABLE ONLY public.auth_user_user_permissions DROP CONSTRAINT auth_user_user_permissions_user_id_permission_id_14a6b632_uniq;
+ALTER TABLE ONLY public.auth_user_user_permissions DROP CONSTRAINT auth_user_user_permissions_pkey;
+ALTER TABLE ONLY public.auth_user DROP CONSTRAINT auth_user_pkey;
+ALTER TABLE ONLY public.auth_user_groups DROP CONSTRAINT auth_user_groups_user_id_group_id_94350c0c_uniq;
+ALTER TABLE ONLY public.auth_user_groups DROP CONSTRAINT auth_user_groups_pkey;
+ALTER TABLE ONLY public.auth_permission DROP CONSTRAINT auth_permission_pkey;
+ALTER TABLE ONLY public.auth_permission DROP CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq;
+ALTER TABLE ONLY public.auth_group DROP CONSTRAINT auth_group_pkey;
+ALTER TABLE ONLY public.auth_group_permissions DROP CONSTRAINT auth_group_permissions_pkey;
+ALTER TABLE ONLY public.auth_group_permissions DROP CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq;
+ALTER TABLE ONLY public.auth_group DROP CONSTRAINT auth_group_name_key;
+ALTER TABLE ONLY public.api_user DROP CONSTRAINT api_user_pkey;
+ALTER TABLE ONLY public.api_ordereddishingredient DROP CONSTRAINT api_ordereddishingredient_pkey;
+ALTER TABLE ONLY public.api_ingredient DROP CONSTRAINT api_ingredient_pkey;
+ALTER TABLE ONLY public.api_dishreport DROP CONSTRAINT api_dishreport_pkey;
+ALTER TABLE ONLY public.api_dishingredient DROP CONSTRAINT api_dishingredient_pkey;
+ALTER TABLE ONLY public.api_dish DROP CONSTRAINT api_dish_pkey;
+ALTER TABLE ONLY public.api_cateringestablishmentautomaticmachine DROP CONSTRAINT api_cateringestablishmentautomaticmachine_pkey;
+ALTER TABLE ONLY public.api_cateringestablishment DROP CONSTRAINT api_cateringestablishment_pkey;
+ALTER TABLE ONLY public.api_automaticmachinetype DROP CONSTRAINT api_automaticmachinetype_pkey;
+ALTER TABLE ONLY public.api_automaticmachinedish DROP CONSTRAINT api_automaticmachinedish_pkey;
+ALTER TABLE public.django_migrations ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.django_content_type ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.django_admin_log ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.auth_user_user_permissions ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.auth_user_groups ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.auth_user ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.auth_permission ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.auth_group_permissions ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.auth_group ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.api_ordereddishingredient ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.api_ingredient ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.api_dishreport ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.api_dishingredient ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.api_dish ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.api_cateringestablishmentautomaticmachine ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.api_cateringestablishment ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.api_automaticmachinetype ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.api_automaticmachinedish ALTER COLUMN id DROP DEFAULT;
+DROP TABLE public.django_session;
+DROP SEQUENCE public.django_migrations_id_seq;
+DROP TABLE public.django_migrations;
+DROP SEQUENCE public.django_content_type_id_seq;
+DROP TABLE public.django_content_type;
+DROP SEQUENCE public.django_admin_log_id_seq;
+DROP TABLE public.django_admin_log;
+DROP SEQUENCE public.auth_user_user_permissions_id_seq;
+DROP TABLE public.auth_user_user_permissions;
+DROP SEQUENCE public.auth_user_id_seq;
+DROP SEQUENCE public.auth_user_groups_id_seq;
+DROP TABLE public.auth_user_groups;
+DROP TABLE public.auth_user;
+DROP SEQUENCE public.auth_permission_id_seq;
+DROP TABLE public.auth_permission;
+DROP SEQUENCE public.auth_group_permissions_id_seq;
+DROP TABLE public.auth_group_permissions;
+DROP SEQUENCE public.auth_group_id_seq;
+DROP TABLE public.auth_group;
+DROP TABLE public.api_user;
+DROP SEQUENCE public.api_ordereddishingredient_id_seq;
+DROP TABLE public.api_ordereddishingredient;
+DROP SEQUENCE public.api_ingredient_id_seq;
+DROP TABLE public.api_ingredient;
+DROP SEQUENCE public.api_dishreport_id_seq;
+DROP TABLE public.api_dishreport;
+DROP SEQUENCE public.api_dishingredient_id_seq;
+DROP TABLE public.api_dishingredient;
+DROP SEQUENCE public.api_dish_id_seq;
+DROP TABLE public.api_dish;
+DROP SEQUENCE public.api_cateringestablishmentautomaticmachine_id_seq;
+DROP TABLE public.api_cateringestablishmentautomaticmachine;
+DROP SEQUENCE public.api_cateringestablishment_id_seq;
+DROP TABLE public.api_cateringestablishment;
+DROP SEQUENCE public.api_automaticmachinetype_id_seq;
+DROP TABLE public.api_automaticmachinetype;
+DROP SEQUENCE public.api_automaticmachinedish_id_seq;
+DROP TABLE public.api_automaticmachinedish;
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: api_automaticmachinedish; Type: TABLE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE TABLE public.api_automaticmachinedish (
+    id integer NOT NULL,
+    automatic_machine_type_id integer NOT NULL,
+    dish_id integer NOT NULL
+);
+
+
+ALTER TABLE public.api_automaticmachinedish OWNER TO myhailo_admin;
+
+--
+-- Name: api_automaticmachinedish_id_seq; Type: SEQUENCE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE SEQUENCE public.api_automaticmachinedish_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_automaticmachinedish_id_seq OWNER TO myhailo_admin;
+
+--
+-- Name: api_automaticmachinedish_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: myhailo_admin
+--
+
+ALTER SEQUENCE public.api_automaticmachinedish_id_seq OWNED BY public.api_automaticmachinedish.id;
+
+
+--
+-- Name: api_automaticmachinetype; Type: TABLE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE TABLE public.api_automaticmachinetype (
+    id integer NOT NULL
+);
+
+
+ALTER TABLE public.api_automaticmachinetype OWNER TO myhailo_admin;
+
+--
+-- Name: api_automaticmachinetype_id_seq; Type: SEQUENCE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE SEQUENCE public.api_automaticmachinetype_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_automaticmachinetype_id_seq OWNER TO myhailo_admin;
+
+--
+-- Name: api_automaticmachinetype_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: myhailo_admin
+--
+
+ALTER SEQUENCE public.api_automaticmachinetype_id_seq OWNED BY public.api_automaticmachinetype.id;
+
+
+--
+-- Name: api_cateringestablishment; Type: TABLE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE TABLE public.api_cateringestablishment (
+    id integer NOT NULL,
+    establishment_code uuid NOT NULL,
+    image character varying(100) NOT NULL,
+    city character varying(25) NOT NULL,
+    country character varying(25) NOT NULL,
+    street character varying(30) NOT NULL
+);
+
+
+ALTER TABLE public.api_cateringestablishment OWNER TO myhailo_admin;
+
+--
+-- Name: api_cateringestablishment_id_seq; Type: SEQUENCE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE SEQUENCE public.api_cateringestablishment_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_cateringestablishment_id_seq OWNER TO myhailo_admin;
+
+--
+-- Name: api_cateringestablishment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: myhailo_admin
+--
+
+ALTER SEQUENCE public.api_cateringestablishment_id_seq OWNED BY public.api_cateringestablishment.id;
+
+
+--
+-- Name: api_cateringestablishmentautomaticmachine; Type: TABLE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE TABLE public.api_cateringestablishmentautomaticmachine (
+    id integer NOT NULL,
+    automatic_machine_type_id integer NOT NULL,
+    catering_establishment_id integer NOT NULL
+);
+
+
+ALTER TABLE public.api_cateringestablishmentautomaticmachine OWNER TO myhailo_admin;
+
+--
+-- Name: api_cateringestablishmentautomaticmachine_id_seq; Type: SEQUENCE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE SEQUENCE public.api_cateringestablishmentautomaticmachine_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_cateringestablishmentautomaticmachine_id_seq OWNER TO myhailo_admin;
+
+--
+-- Name: api_cateringestablishmentautomaticmachine_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: myhailo_admin
+--
+
+ALTER SEQUENCE public.api_cateringestablishmentautomaticmachine_id_seq OWNED BY public.api_cateringestablishmentautomaticmachine.id;
+
+
+--
+-- Name: api_dish; Type: TABLE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE TABLE public.api_dish (
+    id integer NOT NULL,
+    name character varying(20) NOT NULL,
+    image character varying(100) NOT NULL,
+    description text NOT NULL,
+    type character varying(20) NOT NULL,
+    popularity character varying(20) NOT NULL,
+    rate integer NOT NULL
+);
+
+
+ALTER TABLE public.api_dish OWNER TO myhailo_admin;
+
+--
+-- Name: api_dish_id_seq; Type: SEQUENCE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE SEQUENCE public.api_dish_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_dish_id_seq OWNER TO myhailo_admin;
+
+--
+-- Name: api_dish_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: myhailo_admin
+--
+
+ALTER SEQUENCE public.api_dish_id_seq OWNED BY public.api_dish.id;
+
+
+--
+-- Name: api_dishingredient; Type: TABLE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE TABLE public.api_dishingredient (
+    id integer NOT NULL,
+    status boolean NOT NULL,
+    dish_id integer NOT NULL,
+    ingredient_id integer NOT NULL
+);
+
+
+ALTER TABLE public.api_dishingredient OWNER TO myhailo_admin;
+
+--
+-- Name: api_dishingredient_id_seq; Type: SEQUENCE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE SEQUENCE public.api_dishingredient_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_dishingredient_id_seq OWNER TO myhailo_admin;
+
+--
+-- Name: api_dishingredient_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: myhailo_admin
+--
+
+ALTER SEQUENCE public.api_dishingredient_id_seq OWNED BY public.api_dishingredient.id;
+
+
+--
+-- Name: api_dishreport; Type: TABLE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE TABLE public.api_dishreport (
+    id integer NOT NULL,
+    text text NOT NULL,
+    publication_date date NOT NULL,
+    dish_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.api_dishreport OWNER TO myhailo_admin;
+
+--
+-- Name: api_dishreport_id_seq; Type: SEQUENCE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE SEQUENCE public.api_dishreport_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_dishreport_id_seq OWNER TO myhailo_admin;
+
+--
+-- Name: api_dishreport_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: myhailo_admin
+--
+
+ALTER SEQUENCE public.api_dishreport_id_seq OWNED BY public.api_dishreport.id;
+
+
+--
+-- Name: api_ingredient; Type: TABLE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE TABLE public.api_ingredient (
+    id integer NOT NULL,
+    name character varying(20) NOT NULL,
+    price double precision NOT NULL
+);
+
+
+ALTER TABLE public.api_ingredient OWNER TO myhailo_admin;
+
+--
+-- Name: api_ingredient_id_seq; Type: SEQUENCE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE SEQUENCE public.api_ingredient_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_ingredient_id_seq OWNER TO myhailo_admin;
+
+--
+-- Name: api_ingredient_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: myhailo_admin
+--
+
+ALTER SEQUENCE public.api_ingredient_id_seq OWNED BY public.api_ingredient.id;
+
+
+--
+-- Name: api_ordereddishingredient; Type: TABLE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE TABLE public.api_ordereddishingredient (
+    id integer NOT NULL,
+    weight_or_volume double precision NOT NULL,
+    order_date date NOT NULL,
+    order_time time without time zone NOT NULL,
+    ingredient_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.api_ordereddishingredient OWNER TO myhailo_admin;
+
+--
+-- Name: api_ordereddishingredient_id_seq; Type: SEQUENCE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE SEQUENCE public.api_ordereddishingredient_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.api_ordereddishingredient_id_seq OWNER TO myhailo_admin;
+
+--
+-- Name: api_ordereddishingredient_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: myhailo_admin
+--
+
+ALTER SEQUENCE public.api_ordereddishingredient_id_seq OWNED BY public.api_ordereddishingredient.id;
+
+
+--
+-- Name: api_user; Type: TABLE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE TABLE public.api_user (
+    user_ptr_id integer NOT NULL,
+    status character varying(20) NOT NULL
+);
+
+
+ALTER TABLE public.api_user OWNER TO myhailo_admin;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE TABLE public.auth_group (
+    id integer NOT NULL,
+    name character varying(150) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO myhailo_admin;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE SEQUENCE public.auth_group_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO myhailo_admin;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: myhailo_admin
+--
+
+ALTER SEQUENCE public.auth_group_id_seq OWNED BY public.auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE TABLE public.auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO myhailo_admin;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE SEQUENCE public.auth_group_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO myhailo_admin;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: myhailo_admin
+--
+
+ALTER SEQUENCE public.auth_group_permissions_id_seq OWNED BY public.auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE TABLE public.auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO myhailo_admin;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE SEQUENCE public.auth_permission_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO myhailo_admin;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: myhailo_admin
+--
+
+ALTER SEQUENCE public.auth_permission_id_seq OWNED BY public.auth_permission.id;
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE TABLE public.auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    username character varying(150) NOT NULL,
+    first_name character varying(150) NOT NULL,
+    last_name character varying(150) NOT NULL,
+    email character varying(254) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO myhailo_admin;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE TABLE public.auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO myhailo_admin;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE SEQUENCE public.auth_user_groups_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO myhailo_admin;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: myhailo_admin
+--
+
+ALTER SEQUENCE public.auth_user_groups_id_seq OWNED BY public.auth_user_groups.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE SEQUENCE public.auth_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO myhailo_admin;
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: myhailo_admin
+--
+
+ALTER SEQUENCE public.auth_user_id_seq OWNED BY public.auth_user.id;
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE TABLE public.auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO myhailo_admin;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE SEQUENCE public.auth_user_user_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO myhailo_admin;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: myhailo_admin
+--
+
+ALTER SEQUENCE public.auth_user_user_permissions_id_seq OWNED BY public.auth_user_user_permissions.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE TABLE public.django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO myhailo_admin;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE SEQUENCE public.django_admin_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO myhailo_admin;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: myhailo_admin
+--
+
+ALTER SEQUENCE public.django_admin_log_id_seq OWNED BY public.django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE TABLE public.django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO myhailo_admin;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE SEQUENCE public.django_content_type_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO myhailo_admin;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: myhailo_admin
+--
+
+ALTER SEQUENCE public.django_content_type_id_seq OWNED BY public.django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE TABLE public.django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO myhailo_admin;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE SEQUENCE public.django_migrations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_migrations_id_seq OWNER TO myhailo_admin;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: myhailo_admin
+--
+
+ALTER SEQUENCE public.django_migrations_id_seq OWNED BY public.django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: myhailo_admin
+--
+
+CREATE TABLE public.django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO myhailo_admin;
+
+--
+-- Name: api_automaticmachinedish id; Type: DEFAULT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_automaticmachinedish ALTER COLUMN id SET DEFAULT nextval('public.api_automaticmachinedish_id_seq'::regclass);
+
+
+--
+-- Name: api_automaticmachinetype id; Type: DEFAULT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_automaticmachinetype ALTER COLUMN id SET DEFAULT nextval('public.api_automaticmachinetype_id_seq'::regclass);
+
+
+--
+-- Name: api_cateringestablishment id; Type: DEFAULT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_cateringestablishment ALTER COLUMN id SET DEFAULT nextval('public.api_cateringestablishment_id_seq'::regclass);
+
+
+--
+-- Name: api_cateringestablishmentautomaticmachine id; Type: DEFAULT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_cateringestablishmentautomaticmachine ALTER COLUMN id SET DEFAULT nextval('public.api_cateringestablishmentautomaticmachine_id_seq'::regclass);
+
+
+--
+-- Name: api_dish id; Type: DEFAULT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_dish ALTER COLUMN id SET DEFAULT nextval('public.api_dish_id_seq'::regclass);
+
+
+--
+-- Name: api_dishingredient id; Type: DEFAULT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_dishingredient ALTER COLUMN id SET DEFAULT nextval('public.api_dishingredient_id_seq'::regclass);
+
+
+--
+-- Name: api_dishreport id; Type: DEFAULT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_dishreport ALTER COLUMN id SET DEFAULT nextval('public.api_dishreport_id_seq'::regclass);
+
+
+--
+-- Name: api_ingredient id; Type: DEFAULT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_ingredient ALTER COLUMN id SET DEFAULT nextval('public.api_ingredient_id_seq'::regclass);
+
+
+--
+-- Name: api_ordereddishingredient id; Type: DEFAULT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_ordereddishingredient ALTER COLUMN id SET DEFAULT nextval('public.api_ordereddishingredient_id_seq'::regclass);
+
+
+--
+-- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_group ALTER COLUMN id SET DEFAULT nextval('public.auth_group_id_seq'::regclass);
+
+
+--
+-- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_permission ALTER COLUMN id SET DEFAULT nextval('public.auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: auth_user id; Type: DEFAULT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_user ALTER COLUMN id SET DEFAULT nextval('public.auth_user_id_seq'::regclass);
+
+
+--
+-- Name: auth_user_groups id; Type: DEFAULT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_user_groups ALTER COLUMN id SET DEFAULT nextval('public.auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: auth_user_user_permissions id; Type: DEFAULT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.django_admin_log ALTER COLUMN id SET DEFAULT nextval('public.django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.django_content_type ALTER COLUMN id SET DEFAULT nextval('public.django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: django_migrations id; Type: DEFAULT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.django_migrations ALTER COLUMN id SET DEFAULT nextval('public.django_migrations_id_seq'::regclass);
+
+
+--
+-- Data for Name: api_automaticmachinedish; Type: TABLE DATA; Schema: public; Owner: myhailo_admin
+--
+
+COPY public.api_automaticmachinedish (id, automatic_machine_type_id, dish_id) FROM stdin;
+1	2	1
+2	3	2
+3	4	1
+4	4	2
+\.
+
+
+--
+-- Data for Name: api_automaticmachinetype; Type: TABLE DATA; Schema: public; Owner: myhailo_admin
+--
+
+COPY public.api_automaticmachinetype (id) FROM stdin;
+2
+3
+4
+\.
+
+
+--
+-- Data for Name: api_cateringestablishment; Type: TABLE DATA; Schema: public; Owner: myhailo_admin
+--
+
+COPY public.api_cateringestablishment (id, establishment_code, image, city, country, street) FROM stdin;
+1	123e4567-e89b-12d3-a456-426655440000		Харків	Україна	Клочківська
+2	123e4764-e89b-12d3-a456-426655440060		Харків	Україна	Малопанасівська
+3	123e4767-e89b-12d3-a456-426655440560		Київ	Україна	Незалежності
+\.
+
+
+--
+-- Data for Name: api_cateringestablishmentautomaticmachine; Type: TABLE DATA; Schema: public; Owner: myhailo_admin
+--
+
+COPY public.api_cateringestablishmentautomaticmachine (id, automatic_machine_type_id, catering_establishment_id) FROM stdin;
+1	2	1
+2	3	1
+3	4	2
+4	3	3
+\.
+
+
+--
+-- Data for Name: api_dish; Type: TABLE DATA; Schema: public; Owner: myhailo_admin
+--
+
+COPY public.api_dish (id, name, image, description, type, popularity, rate) FROM stdin;
+1	Борщ		Гарна страва	Перша страва	Новинка	10
+2	Олів'є		Смачно дуже!	Салат		8
+\.
+
+
+--
+-- Data for Name: api_dishingredient; Type: TABLE DATA; Schema: public; Owner: myhailo_admin
+--
+
+COPY public.api_dishingredient (id, status, dish_id, ingredient_id) FROM stdin;
+1	f	1	1
+2	f	1	2
+3	f	1	3
+4	f	1	5
+5	f	2	5
+6	f	2	4
+7	f	2	2
+8	f	1	6
+9	t	1	7
+10	f	2	8
+11	t	2	9
+\.
+
+
+--
+-- Data for Name: api_dishreport; Type: TABLE DATA; Schema: public; Owner: myhailo_admin
+--
+
+COPY public.api_dishreport (id, text, publication_date, dish_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: api_ingredient; Type: TABLE DATA; Schema: public; Owner: myhailo_admin
+--
+
+COPY public.api_ingredient (id, name, price) FROM stdin;
+1	Буряк	12
+2	Сметана	23
+3	Капуста	32
+4	Ковбаса	34
+5	Картопля	44
+6	Вода	2
+7	Томат	12
+8	Морква	13
+9	Мариновані огірки	32
+\.
+
+
+--
+-- Data for Name: api_ordereddishingredient; Type: TABLE DATA; Schema: public; Owner: myhailo_admin
+--
+
+COPY public.api_ordereddishingredient (id, weight_or_volume, order_date, order_time, ingredient_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: api_user; Type: TABLE DATA; Schema: public; Owner: myhailo_admin
+--
+
+COPY public.api_user (user_ptr_id, status) FROM stdin;
+4	ordinal
+2	ordinal
+\.
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: myhailo_admin
+--
+
+COPY public.auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: myhailo_admin
+--
+
+COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: myhailo_admin
+--
+
+COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can view log entry	1	view_logentry
+5	Can add permission	2	add_permission
+6	Can change permission	2	change_permission
+7	Can delete permission	2	delete_permission
+8	Can view permission	2	view_permission
+9	Can add group	3	add_group
+10	Can change group	3	change_group
+11	Can delete group	3	delete_group
+12	Can view group	3	view_group
+13	Can add user	4	add_user
+14	Can change user	4	change_user
+15	Can delete user	4	delete_user
+16	Can view user	4	view_user
+17	Can add content type	5	add_contenttype
+18	Can change content type	5	change_contenttype
+19	Can delete content type	5	delete_contenttype
+20	Can view content type	5	view_contenttype
+21	Can add session	6	add_session
+22	Can change session	6	change_session
+23	Can delete session	6	delete_session
+24	Can view session	6	view_session
+25	Can add automatic machine type	7	add_automaticmachinetype
+26	Can change automatic machine type	7	change_automaticmachinetype
+27	Can delete automatic machine type	7	delete_automaticmachinetype
+28	Can view automatic machine type	7	view_automaticmachinetype
+29	Can add catering establishment	8	add_cateringestablishment
+30	Can change catering establishment	8	change_cateringestablishment
+31	Can delete catering establishment	8	delete_cateringestablishment
+32	Can view catering establishment	8	view_cateringestablishment
+33	Can add dish	9	add_dish
+34	Can change dish	9	change_dish
+35	Can delete dish	9	delete_dish
+36	Can view dish	9	view_dish
+37	Can add ingredient	10	add_ingredient
+38	Can change ingredient	10	change_ingredient
+39	Can delete ingredient	10	delete_ingredient
+40	Can view ingredient	10	view_ingredient
+41	Can add user	11	add_user
+42	Can change user	11	change_user
+43	Can delete user	11	delete_user
+44	Can view user	11	view_user
+45	Can add ordered dish ingredient	12	add_ordereddishingredient
+46	Can change ordered dish ingredient	12	change_ordereddishingredient
+47	Can delete ordered dish ingredient	12	delete_ordereddishingredient
+48	Can view ordered dish ingredient	12	view_ordereddishingredient
+49	Can add dish report	13	add_dishreport
+50	Can change dish report	13	change_dishreport
+51	Can delete dish report	13	delete_dishreport
+52	Can view dish report	13	view_dishreport
+53	Can add dish ingredient	14	add_dishingredient
+54	Can change dish ingredient	14	change_dishingredient
+55	Can delete dish ingredient	14	delete_dishingredient
+56	Can view dish ingredient	14	view_dishingredient
+57	Can add catering establishment automatic machine	15	add_cateringestablishmentautomaticmachine
+58	Can change catering establishment automatic machine	15	change_cateringestablishmentautomaticmachine
+59	Can delete catering establishment automatic machine	15	delete_cateringestablishmentautomaticmachine
+60	Can view catering establishment automatic machine	15	view_cateringestablishmentautomaticmachine
+61	Can add automatic machine dish	16	add_automaticmachinedish
+62	Can change automatic machine dish	16	change_automaticmachinedish
+63	Can delete automatic machine dish	16	delete_automaticmachinedish
+64	Can view automatic machine dish	16	view_automaticmachinedish
+\.
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: myhailo_admin
+--
+
+COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+1	pbkdf2_sha256$216000$YCBulvKVKbmv$ZcfNI1JmZUYcwAIjoNNjLbQ5Elfv1+NsbyNxvvkC0Sc=	2021-03-21 11:48:58.45224+00	t	misha				t	t	2021-03-21 11:48:40.624935+00
+3	pbkdf2_sha256$216000$nHwkyRKfyvNz$svdGEKPkRWP1wUrQ2gv0pYIWstReFs/UWd/YfGFnt1o=	\N	f	test1				f	t	2021-03-21 16:26:47.030913+00
+4	1234567890	\N	f	test2				f	t	2021-03-21 16:27:13+00
+2	1234567890	\N	f	test				f	t	2021-03-21 16:18:04+00
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: myhailo_admin
+--
+
+COPY public.auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: myhailo_admin
+--
+
+COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: myhailo_admin
+--
+
+COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+1	2021-03-21 11:49:52.663038+00	1	Борщ	1	[{"added": {}}]	9	1
+2	2021-03-21 11:50:20.052977+00	2	Олів'є	1	[{"added": {}}]	9	1
+3	2021-03-21 11:50:52.390536+00	1	Буряк	1	[{"added": {}}]	10	1
+4	2021-03-21 11:51:07.957335+00	2	Сметана	1	[{"added": {}}]	10	1
+5	2021-03-21 11:51:17.360723+00	3	Капуста	1	[{"added": {}}]	10	1
+6	2021-03-21 11:51:25.565805+00	4	Ковбаса	1	[{"added": {}}]	10	1
+7	2021-03-21 11:51:33.392945+00	5	Картопля	1	[{"added": {}}]	10	1
+8	2021-03-21 11:52:06.679341+00	1	Борщ: Буряк	1	[{"added": {}}]	14	1
+9	2021-03-21 11:52:14.145754+00	2	Борщ: Сметана	1	[{"added": {}}]	14	1
+10	2021-03-21 11:52:20.985088+00	3	Борщ: Капуста	1	[{"added": {}}]	14	1
+11	2021-03-21 11:52:30.355707+00	4	Борщ: Картопля	1	[{"added": {}}]	14	1
+12	2021-03-21 11:52:41.444541+00	5	Олів'є: Картопля	1	[{"added": {}}]	14	1
+13	2021-03-21 11:52:51.39981+00	6	Олів'є: Ковбаса	1	[{"added": {}}]	14	1
+14	2021-03-21 11:52:59.378744+00	7	Олів'є: Сметана	1	[{"added": {}}]	14	1
+15	2021-03-21 11:54:26.935367+00	1	1	1	[{"added": {}}]	8	1
+16	2021-03-21 11:55:01.618173+00	2	2	1	[{"added": {}}]	8	1
+17	2021-03-21 11:55:30.914077+00	3	3	1	[{"added": {}}]	8	1
+18	2021-03-21 11:56:18.710219+00	2	2	1	[{"added": {}}]	7	1
+19	2021-03-21 11:56:22.121486+00	3	3	1	[{"added": {}}]	7	1
+20	2021-03-21 11:56:24.055305+00	4	4	1	[{"added": {}}]	7	1
+21	2021-03-21 11:57:02.35375+00	1	2: Борщ	1	[{"added": {}}]	16	1
+22	2021-03-21 11:57:08.838465+00	2	3: Олів'є	1	[{"added": {}}]	16	1
+23	2021-03-21 11:57:18.321981+00	3	4: Борщ	1	[{"added": {}}]	16	1
+24	2021-03-21 11:57:24.76378+00	4	4: Олів'є	1	[{"added": {}}]	16	1
+25	2021-03-21 12:02:09.687728+00	1	1: 2	1	[{"added": {}}]	15	1
+26	2021-03-21 12:02:16.17903+00	2	1: 3	1	[{"added": {}}]	15	1
+27	2021-03-21 12:02:22.84377+00	3	2: 4	1	[{"added": {}}]	15	1
+28	2021-03-21 12:02:31.48759+00	4	3: 3	1	[{"added": {}}]	15	1
+58	2021-03-21 16:18:22.393491+00	2	test	1	[{"added": {}}]	11	1
+59	2021-03-21 16:26:47.205671+00	3	test1	1	[{"added": {}}]	4	1
+60	2021-03-21 16:27:37.737823+00	4	test2	1	[{"added": {}}]	11	1
+61	2021-03-23 07:51:09.771542+00	2	test	2	[{"changed": {"fields": ["Password"]}}]	11	1
+62	2021-03-23 07:52:04.316198+00	6	Вода	1	[{"added": {}}]	10	1
+63	2021-03-23 07:52:14.957882+00	8	Борщ: Вода	1	[{"added": {}}]	14	1
+64	2021-03-23 07:52:44.723811+00	7	Томат	1	[{"added": {}}]	10	1
+65	2021-03-23 07:53:08.636656+00	9	Борщ: Томат	1	[{"added": {}}]	14	1
+66	2021-03-23 07:53:53.244581+00	8	Морква	1	[{"added": {}}]	10	1
+67	2021-03-23 07:54:12.39495+00	9	Мариновані огірки	1	[{"added": {}}]	10	1
+68	2021-03-23 08:01:47.504564+00	10	Олів'є: Морква	1	[{"added": {}}]	14	1
+69	2021-03-23 08:01:58.395748+00	11	Олів'є: Мариновані огірки	1	[{"added": {}}]	14	1
+70	2021-03-23 08:05:35.270989+00	4	test2	2	[{"changed": {"fields": ["Password"]}}]	11	1
+71	2021-03-23 08:05:41.697758+00	2	test	2	[{"changed": {"fields": ["Password"]}}]	11	1
+\.
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: myhailo_admin
+--
+
+COPY public.django_content_type (id, app_label, model) FROM stdin;
+1	admin	logentry
+2	auth	permission
+3	auth	group
+4	auth	user
+5	contenttypes	contenttype
+6	sessions	session
+7	api	automaticmachinetype
+8	api	cateringestablishment
+9	api	dish
+10	api	ingredient
+11	api	user
+12	api	ordereddishingredient
+13	api	dishreport
+14	api	dishingredient
+15	api	cateringestablishmentautomaticmachine
+16	api	automaticmachinedish
+\.
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: myhailo_admin
+--
+
+COPY public.django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2021-03-21 11:23:05.926873+00
+2	auth	0001_initial	2021-03-21 11:23:06.0125+00
+3	admin	0001_initial	2021-03-21 11:23:06.125138+00
+4	admin	0002_logentry_remove_auto_add	2021-03-21 11:23:06.153987+00
+5	admin	0003_logentry_add_action_flag_choices	2021-03-21 11:23:06.16752+00
+6	contenttypes	0002_remove_content_type_name	2021-03-21 11:23:06.199002+00
+7	auth	0002_alter_permission_name_max_length	2021-03-21 11:23:06.214034+00
+8	auth	0003_alter_user_email_max_length	2021-03-21 11:23:06.231186+00
+9	auth	0004_alter_user_username_opts	2021-03-21 11:23:06.250125+00
+10	auth	0005_alter_user_last_login_null	2021-03-21 11:23:06.2698+00
+11	auth	0006_require_contenttypes_0002	2021-03-21 11:23:06.275438+00
+12	auth	0007_alter_validators_add_error_messages	2021-03-21 11:23:06.290352+00
+13	auth	0008_alter_user_username_max_length	2021-03-21 11:23:06.310616+00
+14	auth	0009_alter_user_last_name_max_length	2021-03-21 11:23:06.327326+00
+15	auth	0010_alter_group_name_max_length	2021-03-21 11:23:06.346253+00
+16	auth	0011_update_proxy_permissions	2021-03-21 11:23:06.3587+00
+17	auth	0012_alter_user_first_name_max_length	2021-03-21 11:23:06.373196+00
+18	api	0001_initial	2021-03-21 11:23:06.568998+00
+19	api	0002_cateringestablishment_image	2021-03-21 11:23:06.692596+00
+20	api	0003_auto_20210320_1149	2021-03-21 11:23:06.727446+00
+21	api	0004_auto_20210320_2157	2021-03-21 11:23:06.750343+00
+22	sessions	0001_initial	2021-03-21 11:23:06.773482+00
+\.
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: myhailo_admin
+--
+
+COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
+kun0y2892km9ab36iimo9xk6nxm81bo8	.eJxVjMsOwiAQRf-FtSE86gAu3fsNZGBAqgaS0q6M_y5NutDtPefcN_O4rcVvPS1-JnZhkp1-t4DxmeoO6IH13nhsdV3mwHeFH7TzW6P0uh7u30HBXkYtcjYKhLOoYzAqUzBGaoSJtBNgydlJqSh1PsukJRCQBQWDY9Q0Yvb5As6dN3c:1lNwZm:ak-bB528dIGZo5ptwhUG21lIZrD8VHS93GQWm7-r6Gc	2021-04-04 11:48:58.458047+00
+\.
+
+
+--
+-- Name: api_automaticmachinedish_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myhailo_admin
+--
+
+SELECT pg_catalog.setval('public.api_automaticmachinedish_id_seq', 4, true);
+
+
+--
+-- Name: api_automaticmachinetype_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myhailo_admin
+--
+
+SELECT pg_catalog.setval('public.api_automaticmachinetype_id_seq', 4, true);
+
+
+--
+-- Name: api_cateringestablishment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myhailo_admin
+--
+
+SELECT pg_catalog.setval('public.api_cateringestablishment_id_seq', 3, true);
+
+
+--
+-- Name: api_cateringestablishmentautomaticmachine_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myhailo_admin
+--
+
+SELECT pg_catalog.setval('public.api_cateringestablishmentautomaticmachine_id_seq', 33, true);
+
+
+--
+-- Name: api_dish_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myhailo_admin
+--
+
+SELECT pg_catalog.setval('public.api_dish_id_seq', 2, true);
+
+
+--
+-- Name: api_dishingredient_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myhailo_admin
+--
+
+SELECT pg_catalog.setval('public.api_dishingredient_id_seq', 11, true);
+
+
+--
+-- Name: api_dishreport_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myhailo_admin
+--
+
+SELECT pg_catalog.setval('public.api_dishreport_id_seq', 1, false);
+
+
+--
+-- Name: api_ingredient_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myhailo_admin
+--
+
+SELECT pg_catalog.setval('public.api_ingredient_id_seq', 9, true);
+
+
+--
+-- Name: api_ordereddishingredient_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myhailo_admin
+--
+
+SELECT pg_catalog.setval('public.api_ordereddishingredient_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myhailo_admin
+--
+
+SELECT pg_catalog.setval('public.auth_group_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myhailo_admin
+--
+
+SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myhailo_admin
+--
+
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 64, true);
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myhailo_admin
+--
+
+SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myhailo_admin
+--
+
+SELECT pg_catalog.setval('public.auth_user_id_seq', 4, true);
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myhailo_admin
+--
+
+SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myhailo_admin
+--
+
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 71, true);
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myhailo_admin
+--
+
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 16, true);
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: myhailo_admin
+--
+
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 22, true);
+
+
+--
+-- Name: api_automaticmachinedish api_automaticmachinedish_pkey; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_automaticmachinedish
+    ADD CONSTRAINT api_automaticmachinedish_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_automaticmachinetype api_automaticmachinetype_pkey; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_automaticmachinetype
+    ADD CONSTRAINT api_automaticmachinetype_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_cateringestablishment api_cateringestablishment_pkey; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_cateringestablishment
+    ADD CONSTRAINT api_cateringestablishment_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_cateringestablishmentautomaticmachine api_cateringestablishmentautomaticmachine_pkey; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_cateringestablishmentautomaticmachine
+    ADD CONSTRAINT api_cateringestablishmentautomaticmachine_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_dish api_dish_pkey; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_dish
+    ADD CONSTRAINT api_dish_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_dishingredient api_dishingredient_pkey; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_dishingredient
+    ADD CONSTRAINT api_dishingredient_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_dishreport api_dishreport_pkey; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_dishreport
+    ADD CONSTRAINT api_dishreport_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_ingredient api_ingredient_pkey; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_ingredient
+    ADD CONSTRAINT api_ingredient_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_ordereddishingredient api_ordereddishingredient_pkey; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_ordereddishingredient
+    ADD CONSTRAINT api_ordereddishingredient_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_user api_user_pkey; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_user
+    ADD CONSTRAINT api_user_pkey PRIMARY KEY (user_ptr_id);
+
+
+--
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_group_id_94350c0c_uniq; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_94350c0c_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_permission_id_14a6b632_uniq; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_14a6b632_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: api_automaticmachinedish_automatic_machine_type_id_edcb18a1; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX api_automaticmachinedish_automatic_machine_type_id_edcb18a1 ON public.api_automaticmachinedish USING btree (automatic_machine_type_id);
+
+
+--
+-- Name: api_automaticmachinedish_dish_id_eb135d08; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX api_automaticmachinedish_dish_id_eb135d08 ON public.api_automaticmachinedish USING btree (dish_id);
+
+
+--
+-- Name: api_cateringestablishmenta_automatic_machine_type_id_10422ff3; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX api_cateringestablishmenta_automatic_machine_type_id_10422ff3 ON public.api_cateringestablishmentautomaticmachine USING btree (automatic_machine_type_id);
+
+
+--
+-- Name: api_cateringestablishmenta_catering_establishment_id_5e945c5d; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX api_cateringestablishmenta_catering_establishment_id_5e945c5d ON public.api_cateringestablishmentautomaticmachine USING btree (catering_establishment_id);
+
+
+--
+-- Name: api_dishingredient_dish_id_3fe861fb; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX api_dishingredient_dish_id_3fe861fb ON public.api_dishingredient USING btree (dish_id);
+
+
+--
+-- Name: api_dishingredient_ingredient_id_2004fec3; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX api_dishingredient_ingredient_id_2004fec3 ON public.api_dishingredient USING btree (ingredient_id);
+
+
+--
+-- Name: api_dishreport_dish_id_9e76a0da; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX api_dishreport_dish_id_9e76a0da ON public.api_dishreport USING btree (dish_id);
+
+
+--
+-- Name: api_dishreport_user_id_20bc28b1; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX api_dishreport_user_id_20bc28b1 ON public.api_dishreport USING btree (user_id);
+
+
+--
+-- Name: api_ordereddishingredient_ingredient_id_09319141; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX api_ordereddishingredient_ingredient_id_09319141 ON public.api_ordereddishingredient USING btree (ingredient_id);
+
+
+--
+-- Name: api_ordereddishingredient_user_id_1b43cfbe; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX api_ordereddishingredient_user_id_1b43cfbe ON public.api_ordereddishingredient USING btree (user_id);
+
+
+--
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON public.auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON public.auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON public.auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX auth_permission_content_type_id_2f476e4b ON public.auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_group_id_97559544; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX auth_user_groups_group_id_97559544 ON public.auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_user_id_6a12ed8b; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX auth_user_groups_user_id_6a12ed8b ON public.auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_permission_id_1fbb5f2c; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX auth_user_user_permissions_permission_id_1fbb5f2c ON public.auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_a95ead1b; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX auth_user_user_permissions_user_id_a95ead1b ON public.auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_6821ab7c_like; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX auth_user_username_6821ab7c_like ON public.auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX django_session_expire_date_a5c62663 ON public.django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: myhailo_admin
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: api_automaticmachinedish api_automaticmachine_automatic_machine_ty_edcb18a1_fk_api_autom; Type: FK CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_automaticmachinedish
+    ADD CONSTRAINT api_automaticmachine_automatic_machine_ty_edcb18a1_fk_api_autom FOREIGN KEY (automatic_machine_type_id) REFERENCES public.api_automaticmachinetype(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: api_automaticmachinedish api_automaticmachinedish_dish_id_eb135d08_fk_api_dish_id; Type: FK CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_automaticmachinedish
+    ADD CONSTRAINT api_automaticmachinedish_dish_id_eb135d08_fk_api_dish_id FOREIGN KEY (dish_id) REFERENCES public.api_dish(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: api_cateringestablishmentautomaticmachine api_cateringestablis_automatic_machine_ty_10422ff3_fk_api_autom; Type: FK CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_cateringestablishmentautomaticmachine
+    ADD CONSTRAINT api_cateringestablis_automatic_machine_ty_10422ff3_fk_api_autom FOREIGN KEY (automatic_machine_type_id) REFERENCES public.api_automaticmachinetype(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: api_cateringestablishmentautomaticmachine api_cateringestablis_catering_establishme_5e945c5d_fk_api_cater; Type: FK CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_cateringestablishmentautomaticmachine
+    ADD CONSTRAINT api_cateringestablis_catering_establishme_5e945c5d_fk_api_cater FOREIGN KEY (catering_establishment_id) REFERENCES public.api_cateringestablishment(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: api_dishingredient api_dishingredient_dish_id_3fe861fb_fk_api_dish_id; Type: FK CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_dishingredient
+    ADD CONSTRAINT api_dishingredient_dish_id_3fe861fb_fk_api_dish_id FOREIGN KEY (dish_id) REFERENCES public.api_dish(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: api_dishingredient api_dishingredient_ingredient_id_2004fec3_fk_api_ingredient_id; Type: FK CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_dishingredient
+    ADD CONSTRAINT api_dishingredient_ingredient_id_2004fec3_fk_api_ingredient_id FOREIGN KEY (ingredient_id) REFERENCES public.api_ingredient(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: api_dishreport api_dishreport_dish_id_9e76a0da_fk_api_dish_id; Type: FK CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_dishreport
+    ADD CONSTRAINT api_dishreport_dish_id_9e76a0da_fk_api_dish_id FOREIGN KEY (dish_id) REFERENCES public.api_dish(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: api_dishreport api_dishreport_user_id_20bc28b1_fk_api_user_user_ptr_id; Type: FK CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_dishreport
+    ADD CONSTRAINT api_dishreport_user_id_20bc28b1_fk_api_user_user_ptr_id FOREIGN KEY (user_id) REFERENCES public.api_user(user_ptr_id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: api_ordereddishingredient api_ordereddishingre_ingredient_id_09319141_fk_api_ingre; Type: FK CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_ordereddishingredient
+    ADD CONSTRAINT api_ordereddishingre_ingredient_id_09319141_fk_api_ingre FOREIGN KEY (ingredient_id) REFERENCES public.api_ingredient(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: api_ordereddishingredient api_ordereddishingre_user_id_1b43cfbe_fk_api_user_; Type: FK CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_ordereddishingredient
+    ADD CONSTRAINT api_ordereddishingre_user_id_1b43cfbe_fk_api_user_ FOREIGN KEY (user_id) REFERENCES public.api_user(user_ptr_id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: api_user api_user_user_ptr_id_5a766ead_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.api_user
+    ADD CONSTRAINT api_user_user_ptr_id_5a766ead_fk_auth_user_id FOREIGN KEY (user_ptr_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_group_id_97559544_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_97559544_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_6a12ed8b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_6a12ed8b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: myhailo_admin
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

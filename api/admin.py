@@ -14,6 +14,7 @@ api_models = [
     models.Ingredient,
     models.OrderedDishIngredient,
     models.User,
+    models.DishIngredientStandardPortion,
 ]
 
 admin.site.register(api_models)

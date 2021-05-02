@@ -1,17 +1,21 @@
 from django.db import models
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AbstractUser, Permission
+from django.utils.translation import gettext_lazy as _
 
 
 class CateringEstablishment(models.Model):
+    name = models.CharField(max_length=20)
     establishment_code = models.UUIDField()
-    image = models.ImageField(blank=True,
-                              upload_to='cateringEstablishmentImages/')
+    image = models.ImageField(
+        blank=True,
+        upload_to='cateringEstablishmentImages/'
+    )
     country = models.CharField(max_length=25)
     city = models.CharField(max_length=25)
     street = models.CharField(max_length=30)
 
     def __str__(self):
-        return str(self.id)
+        return self.name
 
 
 class Dish(models.Model):
@@ -37,10 +41,18 @@ class Ingredient(models.Model):
 class DishIngredient(models.Model):
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
-    status = models.BooleanField()
+    # status = models.BooleanField()
 
     def __str__(self):
         return f'{self.dish.name}: {self.ingredient.name}'
+
+
+class DishIngredientStandardPortion(models.Model):
+    dish_ingredient = models.ForeignKey(
+        DishIngredient, on_delete=models.CASCADE
+    )
+    weight_or_volume = models.FloatField()
+    is_liquid = models.BooleanField(default=False)
 
 
 class AutomaticMachineType(models.Model):
@@ -56,7 +68,8 @@ class CateringEstablishmentAutomaticMachine(models.Model):
                                                on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.catering_establishment.id}: {self.automatic_machine_type.id}'
+        return f'{self.catering_establishment.id}: ' \
+               f'{self.automatic_machine_type.id}'
 
 
 class AutomaticMachineDish(models.Model):
@@ -68,8 +81,19 @@ class AutomaticMachineDish(models.Model):
         return f'{self.automatic_machine_type.id}: {self.dish.name}'
 
 
-class User(get_user_model()):
-    status = models.CharField(max_length=20)
+class User(AbstractUser):
+    is_VIP = models.BooleanField(null=True)
+    user_permissions = models.ManyToManyField(
+        Permission,
+        verbose_name=_('user permissions'),
+        blank=True,
+        help_text=_('Specific permissions for this user.'),
+        related_name='users',
+        related_query_name='user',
+    )
+
+    def __str__(self):
+        return self.username
 
 
 class DishReport(models.Model):
@@ -80,7 +104,7 @@ class DishReport(models.Model):
 
 
 class OrderedDishIngredient(models.Model):
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(DishIngredient, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     weight_or_volume = models.FloatField()
     order_date = models.DateField()

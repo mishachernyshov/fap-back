@@ -51,6 +51,12 @@ urlpatterns = [
     path('backup/', views.BackUpMaking.as_view()),
     path('restore_db/', views.RestoreDatabase.as_view()),
     path('update_certificate/', views.UpdateCertificate.as_view()),
+    path('filters/', views.FiltrationParamsView.as_view()),
+    path('filtered_dishes/', views.RequestedCatalogData.as_view()),
+    path('dish_ingredients_precise_data/<int:pk>/',
+         views.DishIngredientsPreciseData.as_view()),
+    path('all_dish_reports/<int:pk>/', views.AllDishReports.as_view()),
+    path('add_new_report/', views.ReportSending.as_view()),
 
     path("auth/token/login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("auth/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),

@@ -14,3 +14,4 @@ django-cors-headers
 djoser
 djangorestframework_simplejwt==4.6.0
 social-auth-app-django==4.0.0
+django-storages[azure]==1.11.1
